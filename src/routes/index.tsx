@@ -73,9 +73,9 @@ function Dashboard() {
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium">
             <Sparkles className="size-3.5" /> AI-powered workspace
           </span>
-          <h1 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+          <p className="mt-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
             Automate the writing, planning and summarizing parts of your job
-          </h1>
+          </p>
           <p className="mt-3 max-w-2xl text-sm/6 opacity-90">
             Four focused assistants that draft, condense, plan and research — with the exact
             structured prompt shown every time, so you always know what the AI was asked.
