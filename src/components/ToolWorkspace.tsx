@@ -108,10 +108,16 @@ export function ToolWorkspace({
             Editable
           </span>
           <div className="ml-auto flex gap-1">
-            <Button variant="ghost" size="sm" onClick={copy} disabled={!output}>
+            <Button variant="ghost" size="sm" onClick={copy} disabled={!output} aria-label="Copy output">
               {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
             </Button>
-            <Button variant="ghost" size="sm" onClick={run} disabled={!canSubmit || busy}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={run}
+              disabled={!canSubmit || busy}
+              aria-label="Regenerate output"
+            >
               <RotateCcw className="size-4" />
             </Button>
           </div>
