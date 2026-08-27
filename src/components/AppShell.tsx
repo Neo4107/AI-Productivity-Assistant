@@ -98,7 +98,7 @@ export function AppShell({
               <Menu className="size-5" />
             </button>
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold">{title}</p>
+              <h1 className="truncate text-sm font-semibold">{title}</h1>
               <p className="hidden truncate text-xs text-muted-foreground sm:block">
                 {description}
               </p>
