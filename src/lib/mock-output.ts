@@ -7,9 +7,9 @@ export type ToolId = "email" | "notes" | "planner" | "research";
 export function mockOutput(tool: ToolId, fields: Record<string, string>): string {
   switch (tool) {
     case "email": {
-      const purpose = fields.purpose || "our upcoming project milestone";
-      const tone = (fields.tone || "professional").toLowerCase();
-      const recipient = fields.recipient || "there";
+      const purpose = fields["purpose"] || "our upcoming project milestone";
+      const tone = (fields["tone"] || "professional").toLowerCase();
+      const recipient = fields["recipient"] || "there";
       return [
         `Subject: ${titleCase(purpose)}`,
         "",
@@ -30,11 +30,11 @@ export function mockOutput(tool: ToolId, fields: Record<string, string>): string
         "Thanks in advance for taking a look — happy to jump on a quick call if that's easier.",
         "",
         "Best regards,",
-        fields.sender || "Your name",
+        fields["sender"] || "Your name",
       ].join("\n");
     }
     case "notes": {
-      const notes = (fields.notes || "").trim();
+      const notes = (fields["notes"] || "").trim();
       const lines = notes
         .split(/\n|\.\s/)
         .map((l) => l.trim())
@@ -60,8 +60,8 @@ export function mockOutput(tool: ToolId, fields: Record<string, string>): string
       ].join("\n");
     }
     case "planner": {
-      const goal = fields.goal || "Ship the new feature";
-      const horizon = fields.horizon || "2 weeks";
+      const goal = fields["goal"] || "Ship the new feature";
+      const horizon = fields["horizon"] || "2 weeks";
       return [
         `## Plan: ${titleCase(goal)}`,
         `Horizon: ${horizon}`,
@@ -85,7 +85,7 @@ export function mockOutput(tool: ToolId, fields: Record<string, string>): string
       ].join("\n");
     }
     case "research": {
-      const q = fields.question || "the topic";
+      const q = fields["question"] || "the topic";
       return [
         `## Research brief: ${capitalize(q)}`,
         "",
