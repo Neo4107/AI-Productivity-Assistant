@@ -5,19 +5,21 @@ import { AppShell } from "@/components/AppShell";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AI Workplace Productivity Assistant" },
+      { title: "Dashboard — AI Workplace Productivity Assistant" },
       {
         name: "description",
         content:
-          "Automate everyday work with AI: draft emails, summarize meeting notes, plan tasks and research questions — all editable, all in one dashboard.",
+          "Your AI work dashboard: jump into email drafting, meeting summaries, task planning and research briefs, with every prompt visible and every output editable.",
       },
-      { property: "og:title", content: "AI Workplace Productivity Assistant" },
+      { property: "og:title", content: "Dashboard — AI Workplace Productivity Assistant" },
       {
         property: "og:description",
         content:
           "One dashboard to draft emails, summarize meetings, plan tasks and research questions with AI.",
       },
+      { property: "og:url", content: "https://workgenie-ai.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://workgenie-ai.lovable.app/" }],
   }),
   component: Dashboard,
 });
