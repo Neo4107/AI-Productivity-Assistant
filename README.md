@@ -69,27 +69,18 @@ The dev server will start on `http://localhost:8080`. Open that URL in your brow
 - Fill in the inputs and click **Generate** — you should see editable output within a few seconds.
 - Try the floating chatbot in the bottom-right corner.
 
-### Common development commands
-
-| Command | What it does |
-| --- | --- |
-| `bun run dev` | Start the local dev server with hot reload |
-| `bun run build` | Build the app for production |
-| `bun run build:dev` | Build in development mode |
-| `bun run preview` | Preview the production build locally |
-| `bun run lint` | Run ESLint across the project |
-| `bun run format` | Format files with Prettier |
-
 ## Available Scripts
 
-| Script | Description |
-| --- | --- |
-| `bun run dev` | Start the local dev server |
-| `bun run build` | Build for production |
-| `bun run build:dev` | Build in development mode |
-| `bun run preview` | Preview the production build |
-| `bun run lint` | Run ESLint |
-| `bun run format` | Format files with Prettier |
+The following scripts are defined in `package.json`. They work with any npm-compatible package manager — replace `bun run` with `npm run` or `yarn` as needed.
+
+| Script | Command | What it does |
+| --- | --- | --- |
+| `dev` | `bun run dev` | Start the local development server with hot reload (serves on `http://localhost:8080`). |
+| `build` | `bun run build` | Build the app for production. |
+| `build:dev` | `bun run build:dev` | Build the app in development mode. |
+| `preview` | `bun run preview` | Preview the production build locally after running `build`. |
+| `lint` | `bun run lint` | Run ESLint across the project to check for code issues. |
+| `format` | `bun run format` | Format all project files with Prettier. |
 
 ## Project Structure
 
