@@ -69,6 +69,38 @@ The dev server will start on `http://localhost:8080`. Open that URL in your brow
 - Fill in the inputs and click **Generate** — you should see editable output within a few seconds.
 - Try the floating chatbot in the bottom-right corner.
 
+## Production Build & Start
+
+To create an optimized production build and run it locally:
+
+### 1. Build for production
+
+```sh
+bun run build
+# or: npm run build
+```
+
+This compiles the app into a production-ready bundle. The output is written to the `dist/` directory.
+
+### 2. Start the production build
+
+After building, start the production server with:
+
+```sh
+bun run preview
+# or: npm run preview
+```
+
+The preview server will serve the production build, typically on `http://localhost:8080` (or the next available port). Open that URL to verify the app behaves as expected in production mode.
+
+### 3. Verify the production build
+
+- Open the preview URL in your browser.
+- Confirm the dashboard and each tool load correctly.
+- Generate output from a tool to ensure the AI gateway or fallback mock responses still work.
+
+> **Tip:** For a development-mode build (faster, less optimized), use `bun run build:dev` instead of `bun run build`.
+
 ## Available Scripts
 
 The following scripts are defined in `package.json`. They work with any npm-compatible package manager — replace `bun run` with `npm run` or `yarn` as needed.
