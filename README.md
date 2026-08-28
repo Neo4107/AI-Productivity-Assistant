@@ -20,21 +20,65 @@ A modern, responsive web application that helps professionals automate everyday 
 - **UI Components:** shadcn/ui primitives
 - **AI:** Lovable AI Gateway (`google/gemini-3.7-flash`) with deterministic fallback/mock output for offline demos
 
-## Getting Started
+## Local Setup & Run
 
-1. Install dependencies:
-   ```sh
-   bun install
-   # or: npm install
-   ```
+### Prerequisites
 
-2. Start the development server:
-   ```sh
-   bun run dev
-   # or: npm run dev
-   ```
+- [Node.js](https://nodejs.org/) 18+ (LTS recommended) **or** [Bun](https://bun.sh/) 1.0+
+- A package manager: `npm` (comes with Node), `bun`, or `pnpm`
 
-3. Open `http://localhost:8080` in your browser.
+> This project was initialized with **Bun**, so all examples below use `bun`. Replace with `npm run` if you prefer npm.
+
+### 1. Clone the repository
+
+```sh
+git clone <your-github-repo-url>
+cd <your-project-folder>
+```
+
+### 2. Install dependencies
+
+```sh
+bun install
+# or: npm install
+```
+
+### 3. (Optional) Configure the AI gateway
+
+Live AI generation is powered by the Lovable AI Gateway. To use live generation instead of the built-in mock responses, set your Lovable API key in a `.env` file at the project root:
+
+```sh
+LOVABLE_API_KEY=your_lovable_api_key_here
+```
+
+If the key is missing or the service is unavailable, the app automatically falls back to deterministic sample output so every tool remains demonstrable.
+
+### 4. Start the development server
+
+```sh
+bun run dev
+# or: npm run dev
+```
+
+The dev server will start on `http://localhost:8080`. Open that URL in your browser to use the app.
+
+### 5. Verify everything is working
+
+- The dashboard should load at `http://localhost:8080/`.
+- Click any tool in the sidebar (e.g., **Smart Email Generator**) to open it.
+- Fill in the inputs and click **Generate** — you should see editable output within a few seconds.
+- Try the floating chatbot in the bottom-right corner.
+
+### Common development commands
+
+| Command | What it does |
+| --- | --- |
+| `bun run dev` | Start the local dev server with hot reload |
+| `bun run build` | Build the app for production |
+| `bun run build:dev` | Build in development mode |
+| `bun run preview` | Preview the production build locally |
+| `bun run lint` | Run ESLint across the project |
+| `bun run format` | Format files with Prettier |
 
 ## Available Scripts
 
