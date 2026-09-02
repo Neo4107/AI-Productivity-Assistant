@@ -86,13 +86,13 @@ export function ToolWorkspace({
             <div className="space-y-3 border-t border-border p-5 pt-4">
               <div>
                 <p className="mb-1.5 text-xs font-medium text-muted-foreground">System role</p>
-                <pre className="whitespace-pre-wrap rounded-lg bg-muted p-3 font-mono text-xs leading-relaxed">
+                <pre data-testid="system-prompt" className="whitespace-pre-wrap rounded-lg bg-muted p-3 font-mono text-xs leading-relaxed">
                   {system}
                 </pre>
               </div>
               <div>
                 <p className="mb-1.5 text-xs font-medium text-muted-foreground">User prompt</p>
-                <pre className="whitespace-pre-wrap rounded-lg bg-muted p-3 font-mono text-xs leading-relaxed">
+                <pre data-testid="user-prompt" className="whitespace-pre-wrap rounded-lg bg-muted p-3 font-mono text-xs leading-relaxed">
                   {prompt}
                 </pre>
               </div>
