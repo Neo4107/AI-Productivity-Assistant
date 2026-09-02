@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -42,13 +42,20 @@ function renderWorkspace(overrides: Partial<Parameters<typeof ToolWorkspace>[0]>
 describe("ToolWorkspace", () => {
   beforeEach(() => {
     generateWithAI.mockReset();
-    Object.assign(navigator, { clipboard: { writeText: vi.fn() } });
+    vi.stubGlobal(
+      "navigator",
+      { ...navigator, clipboard: { writeText: vi.fn() } },
+    );
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it("shows the structured prompt and an empty state before generating", () => {
     renderWorkspace();
-    expect(screen.getByText(SYSTEM)).toBeInTheDocument();
-    expect(screen.getByText(PROMPT)).toBeInTheDocument();
+    expect(screen.getByTestId("system-prompt")).toHaveTextContent(SYSTEM);
+    expect(screen.getByTestId("user-prompt")).toHaveTextContent(PROMPT);
     expect(screen.getByText("Nothing generated yet")).toBeInTheDocument();
     expect(screen.getByText("Describe the purpose to get started.")).toBeInTheDocument();
   });
@@ -57,9 +64,9 @@ describe("ToolWorkspace", () => {
     const user = userEvent.setup();
     renderWorkspace();
     await user.click(screen.getByRole("button", { name: /structured prompt/i }));
-    expect(screen.queryByText(PROMPT)).not.toBeInTheDocument();
+    expect(screen.queryByTestId("user-prompt")).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /structured prompt/i }));
-    expect(screen.getByText(PROMPT)).toBeInTheDocument();
+    expect(screen.getByTestId("user-prompt")).toBeInTheDocument();
   });
 
   it("renders AI output in an editable textarea and passes the prompt to the server fn", async () => {
@@ -103,7 +110,7 @@ describe("ToolWorkspace", () => {
 
     await user.click(screen.getByRole("button", { name: /generate with ai/i }));
     await screen.findByDisplayValue("Copy me");
-    await user.click(screen.getByRole("button", { name: "Copy output" }));
+    await user.click(copyButton);
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("Copy me");
     expect(toastSuccess).toHaveBeenCalledWith("Copied to clipboard");
