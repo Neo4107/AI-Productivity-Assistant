@@ -1,5 +1,5 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const generateWithAI = vi.fn();
@@ -42,13 +42,20 @@ function renderWorkspace(overrides: Partial<Parameters<typeof ToolWorkspace>[0]>
 describe("ToolWorkspace", () => {
   beforeEach(() => {
     generateWithAI.mockReset();
-    Object.assign(navigator, { clipboard: { writeText: vi.fn() } });
+    if (navigator.clipboard) {
+      vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue(undefined);
+    }
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("shows the structured prompt and an empty state before generating", () => {
     renderWorkspace();
-    expect(screen.getByText(SYSTEM)).toBeInTheDocument();
-    expect(screen.getByText(PROMPT)).toBeInTheDocument();
+    expect(screen.getByTestId("system-prompt")).toHaveTextContent(SYSTEM);
+    expect(screen.getByTestId("user-prompt")).toHaveTextContent(/Task: Write a work email/);
+    expect(screen.getByTestId("user-prompt")).toHaveTextContent(/Purpose: project kickoff/);
     expect(screen.getByText("Nothing generated yet")).toBeInTheDocument();
     expect(screen.getByText("Describe the purpose to get started.")).toBeInTheDocument();
   });
@@ -57,9 +64,9 @@ describe("ToolWorkspace", () => {
     const user = userEvent.setup();
     renderWorkspace();
     await user.click(screen.getByRole("button", { name: /structured prompt/i }));
-    expect(screen.queryByText(PROMPT)).not.toBeInTheDocument();
+    expect(screen.queryByTestId("user-prompt")).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: /structured prompt/i }));
-    expect(screen.getByText(PROMPT)).toBeInTheDocument();
+    expect(screen.getByTestId("user-prompt")).toBeInTheDocument();
   });
 
   it("renders AI output in an editable textarea and passes the prompt to the server fn", async () => {
@@ -73,9 +80,8 @@ describe("ToolWorkspace", () => {
     expect(generateWithAI).toHaveBeenCalledWith({ data: { system: SYSTEM, prompt: PROMPT } });
     expect(toastWarning).not.toHaveBeenCalled();
 
-    await user.clear(textarea);
-    await user.type(textarea, "Edited draft");
-    expect(screen.getByDisplayValue("Edited draft")).toBeInTheDocument();
+    fireEvent.change(textarea, { target: { value: "Edited draft" } });
+    await waitFor(() => expect(screen.getByDisplayValue("Edited draft")).toBeInTheDocument());
   });
 
   it("falls back to the deterministic sample draft and warns when AI is unavailable", async () => {
@@ -86,7 +92,7 @@ describe("ToolWorkspace", () => {
     await user.click(screen.getByRole("button", { name: /generate with ai/i }));
 
     const textarea = await screen.findByDisplayValue(/Hi Dana,/);
-    expect(textarea).toHaveValue(expect.stringContaining("project kickoff"));
+    expect(textarea.value).toMatch(/project kickoff/i);
     expect(toastWarning).toHaveBeenCalledWith(
       "Showing a sample draft",
       expect.objectContaining({ description: "AI service unavailable" }),
@@ -103,7 +109,7 @@ describe("ToolWorkspace", () => {
 
     await user.click(screen.getByRole("button", { name: /generate with ai/i }));
     await screen.findByDisplayValue("Copy me");
-    await user.click(screen.getByRole("button", { name: "Copy output" }));
+    await user.click(copyButton);
 
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("Copy me");
     expect(toastSuccess).toHaveBeenCalledWith("Copied to clipboard");

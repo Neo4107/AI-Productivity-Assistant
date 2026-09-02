@@ -113,6 +113,9 @@ The following scripts are defined in `package.json`. They work with any npm-comp
 | `preview` | `bun run preview` | Preview the production build locally after running `build`. |
 | `lint` | `bun run lint` | Run ESLint across the project to check for code issues. |
 | `format` | `bun run format` | Format all project files with Prettier. |
+| `test` | `bun run test` | Run the full Vitest suite once (used in CI). |
+| `test:watch` | `bun run test:watch` | Run Vitest in watch mode during development. |
+| `test:coverage` | `bun run test:coverage` | Run the Vitest suite with coverage reporting. |
 
 ## Project Structure
 

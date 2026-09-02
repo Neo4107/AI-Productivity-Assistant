@@ -21,8 +21,7 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
-      content:
-        "Hi! I'm your workplace assistant. Ask me anything, or pick a starting point below.",
+      content: "Hi! I'm your workplace assistant. Ask me anything, or pick a starting point below.",
     },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
