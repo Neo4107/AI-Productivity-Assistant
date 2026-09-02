@@ -92,7 +92,7 @@ describe("ToolWorkspace", () => {
     await user.click(screen.getByRole("button", { name: /generate with ai/i }));
 
     const textarea = await screen.findByDisplayValue(/Hi Dana,/);
-    expect(textarea).toHaveValue(/project kickoff/i);
+    expect(textarea.value).toMatch(/project kickoff/i);
     expect(toastWarning).toHaveBeenCalledWith(
       "Showing a sample draft",
       expect.objectContaining({ description: "AI service unavailable" }),
