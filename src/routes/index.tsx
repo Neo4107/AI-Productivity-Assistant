@@ -64,10 +64,7 @@ const stats = [
 
 function Dashboard() {
   return (
-    <AppShell
-      title="Dashboard"
-      description="Your AI workspace for everyday professional tasks."
-    >
+    <AppShell title="Dashboard" description="Your AI workspace for everyday professional tasks.">
       <div className="space-y-8">
         <section className="overflow-hidden rounded-2xl bg-primary p-8 text-primary-foreground sm:p-10">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium">
@@ -132,7 +129,10 @@ function Dashboard() {
           <h2 className="text-sm font-semibold">How it works</h2>
           <ol className="mt-4 grid gap-4 sm:grid-cols-3">
             {[
-              ["1. Describe the task", "Fill in a few short fields — purpose, tone, goal or notes."],
+              [
+                "1. Describe the task",
+                "Fill in a few short fields — purpose, tone, goal or notes.",
+              ],
               ["2. See the prompt", "The structured prompt sent to the AI is always displayed."],
               ["3. Edit and use", "Every result is an editable draft you review before using."],
             ].map(([h, b]) => (
